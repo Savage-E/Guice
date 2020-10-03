@@ -10,45 +10,46 @@ import java.util.Scanner;
 public class LogHandler {
 
     private final @NotNull
-    ConsoleOutput consoleOutput;
+    Output consoleOutput;
 
-    private final @NotNull FileOutput fileOutput;
-
-    private @NotNull LogNumber logNumber;
+    private final @NotNull
+    Output fileOutput;
 
     @Inject
-    public LogHandler(@NotNull ConsoleOutput consoleOutput, @NotNull FileOutput fileOutput, @NotNull LogNumber logNumber) {
+    public LogHandler(@NotNull Output consoleOutput, @NotNull @FileOutputAnn Output fileOutput) {
         this.consoleOutput = consoleOutput;
         this.fileOutput = fileOutput;
-        this.logNumber = logNumber;
     }
 
 
     public void waitForInput() {
 
         ArrayList<String> lines = new ArrayList<>();
-        System.out.println("Сhoose how you want to output log records.Input the following tag\n1-Output " +
-                "to Console(tag <b>)\n2-Output to File(tag <a>)\n3- Output to File and Console(tag <c>)");
+
         String param = "";
         Boolean flag = false;
-        String startTag="";
-        String endTag="";
+        String startTag = "";
+        String endTag = "";
+        Integer n = 1;
+        System.out.println("Сhoose how you want to output log records.Input the following tag\n1-Output " +
+                "to Console(tag <b>)\n2-Output to File(tag <a>)\n3- Output to File and Console(tag <c>)");
         try (Scanner scanner = new Scanner(System.in)) {
             do {
-             param = scanner.nextLine().trim();
+
+                param = scanner.nextLine();
 
                 switch (param) {
                     case "<a>":
-                               startTag="<a>";
-                               endTag="</a>";
-                               break;
+                        startTag = "<a>";
+                        endTag = "</a>";
+                        break;
                     case "<b>":
-                        startTag="<b>";
-                        endTag="</b>";
+                        startTag = "<b>";
+                        endTag = "</b>";
                         break;
                     case "<c>":
-                        startTag="<c>";
-                        endTag="</c>";
+                        startTag = "<c>";
+                        endTag = "</c>";
                         break;
                     default:
                         System.out.println("You entered wrong symbols.Try again");
@@ -58,16 +59,27 @@ public class LogHandler {
 
             System.out.println("Waiting for new lines. Press Ctrl+D to exit.");
             while (scanner.hasNext()) {
-                lines.add(logNumber.nextNumber() + ": "+startTag + scanner.nextLine().trim() + endTag);
+                lines.add((n + ": " + startTag + scanner.nextLine().trim() + endTag));
+                n++;
             }
         } catch (IllegalStateException | NoSuchElementException e) {
             System.out.println(e);
         }
+
         if (param.equals("<b>"))
-            consoleOutput.print(lines);
+            consoleOutput.output(lines);
         if (param.equals("<a>"))
-         fileOutput.fileOutput(lines);
+            fileOutput.output(lines);
+        if (param.equals("<c>")) {
+            ArrayList<String> arrayList = new ArrayList<>();
+            n = 2;
+
+            for (String s : lines) {
+                arrayList.add(s.replaceFirst("^[0-9]", n.toString()));
+                n++;
+            }
+            consoleOutput.output(lines);
+            fileOutput.output(arrayList);
+        }
     }
-
-
 }

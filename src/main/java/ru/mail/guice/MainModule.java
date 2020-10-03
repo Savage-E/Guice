@@ -4,12 +4,9 @@ import com.google.inject.AbstractModule;
 
 public class MainModule extends AbstractModule {
 
-
-
     @Override
     protected void configure() {
-    bind(ConsoleOutput.class).toInstance(new ConsoleOutputImpl());
-    bind(FileOutput.class).toInstance(new FileOutputImpl());
-
+    bind(Output.class).to(ConsoleOutputImpl.class);
+    bind(Output.class).annotatedWith(FileOutputAnn.class).to( FileOutputImpl.class);
     }
 }

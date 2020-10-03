@@ -14,7 +14,9 @@ public class ConsoleOutputImpl implements Output {
     @Override
     public void output(@NotNull ArrayList<String> lines) {
 
+
         for (String s : lines) {
+
             logger.info(s);
         }
     }

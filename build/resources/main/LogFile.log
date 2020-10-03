@@ -1,8 +1,6 @@
-окт 03, 2020 7:18:59 PM ru.mail.guice.FileOutputImpl fileOutput
-INFO: 1: <a>line 1</a>
-окт 03, 2020 7:18:59 PM ru.mail.guice.FileOutputImpl fileOutput
-INFO: 2: <a>line 2</a>
-окт 03, 2020 7:18:59 PM ru.mail.guice.FileOutputImpl fileOutput
-INFO: 3: <a>line 3</a>
-окт 03, 2020 7:18:59 PM ru.mail.guice.FileOutputImpl fileOutput
-INFO: 4: <a>line 5</a>
+окт 04, 2020 12:34:16 AM ru.mail.guice.FileOutputImpl output
+INFO: 2: <a>dfwsfwe</a>
+окт 04, 2020 12:34:16 AM ru.mail.guice.FileOutputImpl output
+INFO: 3: <a>few</a>
+окт 04, 2020 12:34:16 AM ru.mail.guice.FileOutputImpl output
+INFO: 4: <a>fwefw</a>

@@ -29,9 +29,9 @@ public class FileOutputImpl implements Output {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         for (String s : lines) {
             logger.info(s);
+
         }
 
     }
