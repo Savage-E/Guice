@@ -9,11 +9,9 @@ import java.util.Scanner;
 
 public class LogHandler {
 
-    private final @NotNull
-    Output consoleOutput;
+    private final @NotNull Output consoleOutput;
 
-    private final @NotNull
-    Output fileOutput;
+    private final @NotNull Output fileOutput;
 
     @Inject
     public LogHandler(@NotNull Output consoleOutput, @NotNull @FileOutputAnn Output fileOutput) {
@@ -27,7 +25,6 @@ public class LogHandler {
         ArrayList<String> lines = new ArrayList<>();
 
         String param = "";
-        Boolean flag = false;
         String startTag = "";
         String endTag = "";
         Integer n = 1;
@@ -38,26 +35,24 @@ public class LogHandler {
 
                 param = scanner.nextLine();
 
-                switch (param) {
-                    case "<a>":
-                        startTag = "<a>";
-                        endTag = "</a>";
-                        break;
-                    case "<b>":
-                        startTag = "<b>";
-                        endTag = "</b>";
-                        break;
-                    case "<c>":
-                        startTag = "<c>";
-                        endTag = "</c>";
-                        break;
-                    default:
-                        System.out.println("You entered wrong symbols.Try again");
-                        flag = true;
-                }
-            } while (flag);
+                if (param.equals("<a>")) {
+                    startTag = "<a>";
+                    endTag = "</a>";
+                    break;
+                } else if (param.equals("<b>")) {
+                    startTag = "<b>";
+                    endTag = "</b>";
+                    break;
+                } else if (param.equals("<c>")) {
+                    startTag = "<c>";
+                    endTag = "</c>";
+                    break;
+                } else
+                    System.out.println("You entered wrong symbols.Try again");
 
-            System.out.println("Waiting for new lines. Press Ctrl+D to exit.");
+            } while (true);
+
+            System.out.println("Waiting for new lines. Press Ctrl+D or Ctrl+Z to exit.");
             while (scanner.hasNext()) {
                 lines.add((n + ": " + startTag + scanner.nextLine().trim() + endTag));
                 n++;
